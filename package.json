@@ -1,0 +1,25 @@
+{
+  "name": "hls-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch src -e ts --exec \"npm exec tsc && node ./dist/main.js\" --delay 2"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "nodemon": "^2.0.13",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "aws-sdk": "^2.1008.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "hls-server": "^1.5.0"
+  }
+}
