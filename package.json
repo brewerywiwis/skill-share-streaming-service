@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch src -e ts --exec \"npm exec tsc && node ./dist/main.js\" --delay 2"
+    "dev": "nodemon --watch src -e ts --exec \"npm exec tsc && node ./dist/main.js\" --delay 2",
+    "start": "npm exec tsc && node ./dist/main.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,5 +22,6 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "hls-server": "^1.5.0"
-  }
+  },
+  "engines": {"node": "16.10"}
 }

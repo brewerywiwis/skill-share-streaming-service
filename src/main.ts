@@ -22,14 +22,14 @@ app.get('/hello', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../video', 'sample.m3u8'))
 // })
 
-app.get('/video/:filename', (req, res) => {
-  res.sendFile(path.join(__dirname, '../video', req.params.filename + '.m3u8'))
-})
+// app.get('/video/:filename', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../video', req.params.filename + '.m3u8'))
+// })
 
-app.get('/s3/video/:filename', async (req, res, next) => {
+app.get('/video/:filename', async (req, res, next) => {
   const params = {
     Bucket: 'skillshare-storage',
-    Key: `sample/${req.params.filename}`,
+    Key: `hls/sample/${req.params.filename}`,
   }
   try {
     const head = await s3.headObject(params).promise()
@@ -49,7 +49,7 @@ app.get('/s3/video/:filename', async (req, res, next) => {
 
     stream.pipe(res)
   } catch (e) {
-    res.json({ message: 'video error' })
+    res.status(404).json({ message: 'video error' })
   }
 })
 
