@@ -30,7 +30,7 @@ app.get('/video/:filename', async (req, res, next) => {
   req.params.filename.split('.')[0]
   const params = {
     Bucket: 'skillshare-storage',
-    Key: `hls/${req.params.filename.split('.')[0]}/sample.m3u8`,
+    Key: `hls/${req.params.filename.split('.')[0]}/${req.params.filename}`,
   }
   try {
     const head = await s3.headObject(params).promise()
