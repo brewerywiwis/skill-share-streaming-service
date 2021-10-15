@@ -1,12 +1,14 @@
 import dotenv from 'dotenv'
 
 // config() will read your .env file, parse the contents, assign it to process.env.
-const envFound = dotenv.config()
-if (envFound.error) {
-  throw new Error("Couldn't find .env file")
-}
-
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+
+if (process.env.NODE_ENV === 'development') {
+  const envFound = dotenv.config()
+  if (envFound.error) {
+    throw new Error("Couldn't find .env file")
+  }
+}
 
 export default {
   port: parseInt(process.env.PORT || '8080', 10),
