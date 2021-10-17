@@ -1,13 +1,12 @@
 import express from 'express'
 import config from './config'
-import path from 'path'
 import cors from 'cors'
 import AWS from 'aws-sdk'
 import mime from 'mime'
-
+import morgan from 'morgan'
 const app = express()
 app.use(cors())
-
+app.use(morgan('dev'))
 const s3 = new AWS.S3({
   accessKeyId: config.aws_access_key_id,
   secretAccessKey: config.aws_secret,
@@ -18,18 +17,18 @@ app.get('/hello', (req, res) => {
   res.json({ message: 'ok' })
 })
 
-// app.get('/sample.m3u8', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../video', 'sample.m3u8'))
+// app.get('/hello/:filename', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../video', 'sample', req.params.filename))
 // })
 
 // app.get('/video/:filename', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../video', req.params.filename + '.m3u8'))
 // })
 
-app.get('/video/:directory/:filename', async (req, res, next) => {
+app.get('/video/:videoId/:filename', async (req, res, next) => {
   const params = {
     Bucket: 'skillshare-storage',
-    Key: `hls/${req.params.directory}/${req.params.filename}`,
+    Key: `hls_video/${req.params.videoId}/${req.params.filename}`,
   }
   try {
     const head = await s3.headObject(params).promise()
@@ -53,5 +52,5 @@ app.get('/video/:directory/:filename', async (req, res, next) => {
   }
 })
 
-console.log('Server is running')
+console.log('Server is running ' + config.port)
 app.listen(config.port || 8080)
